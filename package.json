@@ -1,11 +1,13 @@
 {
   "type": "module",
-  "scripts": 
-  {
-    "A":"node src/main.js"
+  "scripts": {
+    "online": "vite-node src/main.js"
   },
   "dependencies": {
     "discord.js": "^14.7.1",
-    "dotenv": "^16.0.3"
+    "dotenv": "^16.0.3",
+    "pinia": "^2.0.32",
+    "vite-node": "^0.29.2",
+    "vue": "^3.2.47"
   }
 }
