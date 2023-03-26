@@ -1,4 +1,4 @@
-import {REST, Routes, Collection} from 'discord.js'
+import {REST, Routes, Collection, Client} from 'discord.js'
 import fg from'fast-glob'
 import {useAppStore} from '@/store/app'
 
@@ -32,4 +32,26 @@ export const loadCommands = async() =>{
     appStore.commandsActionMap = actions
 
     console.log(appStore.commandsActionMap)
+}
+
+export const loadEvents = async() => {
+   const appStore = useAppStore()
+   const client = appStore.client
+   const files = await fg('./src/events/**/index.js')
+   for (const file of files){
+      const eventFile = await import(file)
+
+      if(eventFile.event.once) {
+         client.once(
+            eventFile.event.name,
+            eventFile.action
+         )
+      }
+      else {
+         client.on(
+            eventFile.event.name,
+            eventFile.action
+         )
+      }
+   }
 }
